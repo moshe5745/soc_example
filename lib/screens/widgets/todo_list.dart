@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:soc_example/todo/todo_item.dart';
+
+import 'todo_item.dart';
 
 class TodoListWidget extends StatelessWidget {
   final List<String> todos;
   final Function(int) onDelete;
 
   const TodoListWidget({
-    Key? key,
+    super.key,
     required this.todos,
     required this.onDelete,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

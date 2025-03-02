@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soc_example/todo/todo_list.dart';
+import 'package:soc_example/screens/todo_vm.dart';
+
+import 'widgets/todo_list.dart';
 
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
@@ -9,23 +11,8 @@ class TodoScreen extends StatefulWidget {
 }
 
 class _TodoScreenState extends State<TodoScreen> {
-  final List<String> _todos = ['Buy milk', 'Walk dog', 'Code Flutter'];
+  final TodoVM vm = TodoVM();
   final TextEditingController _controller = TextEditingController();
-
-  void _addTodo() {
-    if (_controller.text.isNotEmpty) {
-      setState(() {
-        _todos.add(_controller.text);
-        _controller.clear();
-      });
-    }
-  }
-
-  void _deleteTodo(int index) {
-    setState(() {
-      _todos.removeAt(index);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,15 +34,18 @@ class _TodoScreenState extends State<TodoScreen> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.add),
-                  onPressed: _addTodo,
+                  onPressed: () {
+                    vm.addTask(_controller.text);
+                    _controller.clear();
+                  },
                 ),
               ],
             ),
           ),
           Expanded(
             child: TodoListWidget(
-              todos: _todos,
-              onDelete: _deleteTodo,
+              todos: vm.tasks,
+              onDelete: (index) => vm.removeTask(index),
             ),
           ),
         ],
