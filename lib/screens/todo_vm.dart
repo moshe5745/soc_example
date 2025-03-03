@@ -10,17 +10,20 @@ class TodoVM extends ChangeNotifier {
     });
 
     count.value = tasks.length;
+    notifyListeners();
   }
 
   void addTask(String task) {
     if (task.isEmpty) return;
 
     tasks.add(task);
+    count.value = tasks.length;
     notifyListeners();
   }
 
   void removeTask(int index) {
     tasks.removeAt(index);
+    count.value = tasks.length;
     notifyListeners();
   }
 }
